@@ -48,6 +48,7 @@ func main() {
 				Value: []byte(fmt.Sprintf("Message number %d", msgs)),
 			},
 		)
+		randomSleep()
 		if err != nil {
 			log.Fatal("failed to write messages:", err)
 		}
@@ -58,7 +59,7 @@ func main() {
 
 func randomSleep() {
 	rand.Seed(time.Now().UnixNano())
-	n := rand.Intn(100) // n will be between 0 and 10
+	n := rand.Intn(10) // n will be between 0 and 10
 	// fmt.Printf("Sleeping %d seconds...\n", n)
 	time.Sleep(time.Duration(n) * time.Millisecond)
 	// fmt.Println("Done")
