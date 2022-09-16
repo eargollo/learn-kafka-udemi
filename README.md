@@ -62,3 +62,17 @@ Only solution might be having multiple clients. Added a random sleep up to 10ms 
 
 Created Wikimedia producer reading from online stream. Same pattern. Avg tput from stream is 14 mes/sec.
 
+Put up OpenSeach. Check:
+```
+# Get status
+curl -XGET --insecure -u 'admin:admin' 'http://localhost:9200'
+```
+
+Creating index:
+```
+curl -XPUT --insecure -u 'admin:admin' 'http://localhost:9200/wikimedia'
+```
+
+Got idepotency by unmarshalling and using the event id. Could use the document id as well.
+
+To do: Only move index forward after recording the entry in OpenSearch.

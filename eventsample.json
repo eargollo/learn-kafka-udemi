@@ -1,0 +1,36 @@
+{
+    "$schema": "/mediawiki/recentchange/1.0.0",
+    "meta": {
+        "uri": "https://ast.wikipedia.org/wiki/Tobar",
+        "request_id": "6fc56dfd-c9d0-4f7a-9806-4dc5d7db501f",
+        "id": "762e15eb-5b79-40c9-a732-7f90479e451c",
+        "dt": "2022-09-14T15:25:07Z",
+        "domain": "ast.wikipedia.org",
+        "stream": "mediawiki.recentchange",
+        "topic": "eqiad.mediawiki.recentchange",
+        "partition": 0,
+        "offset": 4162136218
+    },
+    "id": 12689496,
+    "type": "edit",
+    "namespace": 0,
+    "title": "Tobar",
+    "comment": "iguo testu: Adelantráu Mayor => Adelantado Mayor",
+    "timestamp": 1663169107,
+    "user": "XabatuBot",
+    "bot": true,
+    "minor": true,
+    "length": {
+        "old": 4760,
+        "new": 4759
+    },
+    "revision": {
+        "old": 3527508,
+        "new": 3720178
+    },
+    "server_url": "https://ast.wikipedia.org",
+    "server_name": "ast.wikipedia.org",
+    "server_script_path": "/w",
+    "wiki": "astwiki",
+    "parsedcomment": "iguo testu: Adelantráu Mayor =&gt; Adelantado Mayor"
+}
