@@ -57,3 +57,8 @@ Solved issue by making producer assynchronous and got 1.5 million produced messa
 Bottleneck became the consumer that was receiving a message at a time with a throughput of 500 messages per second. Could not get the throughput beyond 800 messages per second even by adding 10k bytes of minimum for receiving messages or increasing the queue capacity. Strange.
 
 Only solution might be having multiple clients. Added a random sleep up to 10ms to control the producer to about 200 messages/s.
+
+### Wikimedia to OpenSearch
+
+Created Wikimedia producer reading from online stream. Same pattern. Avg tput from stream is 14 mes/sec.
+
