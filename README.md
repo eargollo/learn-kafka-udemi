@@ -24,7 +24,7 @@ $ docker-compose -f open-serach-compose.yaml rm
 $ sudo rm -rf data
 ```
 
-## Examples
+## Exercises
 
 ### Simple producer consumer
 Creating a Kafka topic and adding one or more producers/consumers. 
