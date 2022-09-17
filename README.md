@@ -1,6 +1,6 @@
 # Learn Kafka
 
-Exercices from Udemi Kafka course, done in Golang instead of Java
+Exercices from Udemi Kafka Streams Hands On course, done in Golang instead of Java
 
 ## Dev environment
 
