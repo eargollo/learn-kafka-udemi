@@ -35,11 +35,11 @@ func main() {
 
 	// make a new reader that consumes from topic-A
 	r := kafka.NewReader(kafka.ReaderConfig{
-		Brokers:  []string{"localhost:9092"},
-		GroupID:  "consumer-group-id",
-		Topic:    TOPIC,
-		MinBytes: 1,    // 1
-		MaxBytes: 10e6, // 10MB
+		Brokers: []string{"localhost:9092"},
+		GroupID: "consumer-group-id",
+		Topic:   TOPIC,
+		// MinBytes: 1,    // 1
+		// MaxBytes: 10e6, // 10MB
 	})
 
 	go func() {
@@ -69,7 +69,8 @@ func main() {
 	log.Print(client.Info())
 
 	for {
-		m, err := r.ReadMessage(context.Background())
+		m, err := r.FetchMessage(context.Background())
+		// m, err := r.ReadMessage(context.Background())
 		if err != nil {
 			fmt.Printf("Error reading message: %v", err)
 			break
@@ -81,9 +82,19 @@ func main() {
 			log.Fatalf("could not unmarshall event %v: %v", string(m.Value), err)
 		}
 
+		// Very bruteforce
 		value := string(m.Value)
-		value = strings.ReplaceAll(value, "[", "\\[")
-		value = strings.ReplaceAll(value, "]", "\\]")
+		for char := range "+-&|!(){}[]^\"~*?:\\" {
+			value = strings.ReplaceAll(
+				value,
+				fmt.Sprintf("%c", char),
+				fmt.Sprintf("\\%c", char),
+			)
+		}
+		// value = strings.ReplaceAll(value, "[", "\\[")
+		// value = strings.ReplaceAll(value, "]", "\\]")
+		// value = strings.ReplaceAll(value, "]", "\\]")
+		// + - && || ! ( ) { } [ ] ^ " ~ * ? : \
 
 		req := opensearchapi.IndexRequest{
 			Index:      "wikimedia",
@@ -93,6 +104,12 @@ func main() {
 		insertResponse, err := req.Do(context.Background(), client)
 		if err != nil {
 			log.Fatalf("could not instert document %s, response %v: %v", m.Value, insertResponse, err)
+		}
+
+		// Commit offset on Kafka
+		err = r.CommitMessages(context.Background(), m)
+		if err != nil {
+			log.Printf("Error: Could not commit message")
 		}
 
 		// fmt.Printf("message at %v topic/partition/offset %v/%v/%v: %s = %s\n", m.Time, m.Topic, m.Partition, m.Offset, string(m.Key), string(m.Value))

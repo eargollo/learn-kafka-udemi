@@ -75,4 +75,9 @@ curl -XPUT --insecure -u 'admin:admin' 'http://localhost:9200/wikimedia'
 
 Got idepotency by unmarshalling and using the event id. Could use the document id as well.
 
-To do: Only move index forward after recording the entry in OpenSearch.
+To check if there is imbalance between producer and consumer, we can query the consumer group:
+```
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group consumer-group-id --describe
+```
+
+Changed from read message to fetch message and then made client reliable with an offset commit to Kafka only after adding the record to OpenSearch.
