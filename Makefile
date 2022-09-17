@@ -7,6 +7,17 @@ run:
 .PHONY: run-nativr
 run-native: zookeeper-daemon kafka
 
+.PHONY: lint
+lint: lint-code lint-security
+
+.PHONY: lint-code
+lint-code:
+	golangci-lint run ./...
+
+.PHONY: lint-security
+lint-security:
+	gosec ./...
+
 .PHONY: list
 list:
 	kafka-topics.sh --list --bootstrap-server eduardos-air.local:9092
