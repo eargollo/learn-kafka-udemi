@@ -8,7 +8,7 @@ run:
 run-native: zookeeper-daemon kafka
 
 .PHONY: lint
-lint: lint-code lint-security
+lint: lint-code lint-security lint-vulnerability
 
 .PHONY: lint-code
 lint-code:
@@ -17,6 +17,10 @@ lint-code:
 .PHONY: lint-security
 lint-security:
 	gosec ./...
+
+.PHONY: lint-vulnerability
+lint-vulnerability:
+	govulncheck ./...
 
 .PHONY: list
 list:
